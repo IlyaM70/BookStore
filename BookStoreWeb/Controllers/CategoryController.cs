@@ -21,5 +21,21 @@ namespace BookStoreWeb.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Create(Category category)
+        {
+            if(ModelState.IsValid)
+            {
+                _db.Categories.Add(category);
+                _db.SaveChanges();
+            }
+            else
+            {
+                return View();
+            }
+            return RedirectToAction("Index");
+            
+        }
     }
 }
