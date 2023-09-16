@@ -29,13 +29,11 @@ namespace BookStoreWeb.Controllers
             {
                 _db.Categories.Add(category);
                 _db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            else
-            {
-                return View();
-            }
-            return RedirectToAction("Index");
-            
+
+            return View();
         }
     }
 }
+

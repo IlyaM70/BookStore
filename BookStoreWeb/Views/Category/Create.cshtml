@@ -9,10 +9,12 @@
         <div class="mb-3 row">
             <label asp-for="Name" class="ps-0 form-label">Category name</label>
             <input asp-for="Name" class="form-control"/>
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="mb-3 row">
             <label asp-for="DisplayOrder" class="ps-0 form-label">Display order</label>
             <input asp-for="DisplayOrder" class="form-control" />
+            <span asp-validation-for="DisplayOrder" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
         <a asp-controller="Category" asp-action="Index" class="btn btn-secondary" style="width:150px">
@@ -20,3 +22,8 @@
         </a>
     </div>
 </form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
