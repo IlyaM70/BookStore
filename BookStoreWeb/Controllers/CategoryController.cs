@@ -29,6 +29,7 @@ namespace BookStoreWeb.Controllers
             {
                 _db.Categories.Add(category);
                 _db.SaveChanges();
+                TempData["success"] = $"Category {category.Name} created successfully";
                 return RedirectToAction("Index");
             }
 
@@ -57,6 +58,7 @@ namespace BookStoreWeb.Controllers
             {
                 _db.Categories.Update(category);
                 _db.SaveChanges();
+                TempData["success"] = $"Category {category.Name} updated successfully";
                 return RedirectToAction("Index");
             }
 
@@ -78,11 +80,17 @@ namespace BookStoreWeb.Controllers
             return View(categoryFromDb);
         }
 
-        [HttpPost]
-        public IActionResult Delete(Category category)
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePost(int? id)
         {
-            _db.Categories.Remove(category);
+            Category? categoryFromDb = _db.Categories.Where(c => c.Id == id).FirstOrDefault();
+            if (categoryFromDb == null)
+            {
+                return NotFound();
+            }
+            _db.Categories.Remove(categoryFromDb);
             _db.SaveChanges();
+            TempData["success"] = $"Category {categoryFromDb.Name} deleted successfully";
             return RedirectToAction("Index");
         }
     }
