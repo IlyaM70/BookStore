@@ -24,7 +24,7 @@ namespace BookStore.DataAccess.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("BookStoreWeb.Models.Category", b =>
+            modelBuilder.Entity("BookStore.Web.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
