@@ -3,8 +3,9 @@ using BookStore.DataAccess.Repository.RepositoryInterface;
 using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookStore.Web.Controllers
+namespace BookStore.Web.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -26,7 +27,7 @@ namespace BookStore.Web.Controllers
         [HttpPost]
         public IActionResult Create(Category category)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _unitOfWork.Category.Add(category);
                 _unitOfWork.Save();
@@ -39,12 +40,12 @@ namespace BookStore.Web.Controllers
 
         public IActionResult Edit(int? id)
         {
-            if (id== null||id==0) 
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _unitOfWork.Category.GetFirstOrDefault(c=>c.Id==id);
-            if (categoryFromDb==null)
+            Category? categoryFromDb = _unitOfWork.Category.GetFirstOrDefault(c => c.Id == id);
+            if (categoryFromDb == null)
             {
                 return NotFound();
             }
