@@ -1,4 +1,6 @@
 using BookStore.DataAccess.Data;
+using BookStore.DataAccess.Repository;
+using BookStore.DataAccess.Repository.RepositoryInterface;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PosgreSqlServer")));
 
+builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
 
 var app = builder.Build();
 
