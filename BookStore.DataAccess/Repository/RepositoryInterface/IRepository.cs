@@ -11,7 +11,7 @@ namespace BookStore.DataAccess.Repository.RepositoryInterface
     {
         // T - Category or any other Entity
         IEnumerable<T> GetAll();
-        T GetFirstOrDefault(Expression<Func<T,bool>> filter);
+        T Get(Expression<Func<T,bool>> filter);
         void Add(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
