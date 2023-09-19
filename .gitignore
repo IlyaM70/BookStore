@@ -365,3 +365,8 @@ FodyWeavers.xsd
 # Config files
 appsettings.Development.json
 appsettings.json
+
+# frontend libraries
+/BookStoreWeb/wwwroot/lib
+# images
+/BookStoreWeb/wwwroot/images

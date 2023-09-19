@@ -35,7 +35,7 @@ namespace BookStore.Web.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View();
+            return View(category);
         }
 
         public IActionResult Edit(int? id)
@@ -64,7 +64,7 @@ namespace BookStore.Web.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View();
+            return View(category);
         }
 
         public IActionResult Delete(int? id)
