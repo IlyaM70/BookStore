@@ -13,7 +13,7 @@
             <div class="col-5">
             </div>
             <div class="col-7 text-end">
-                <a asp-controller="Category" asp-action="Create" class="btn btn-primary">
+                <a asp-controller="Category" asp-action="Upsert" class="btn btn-primary">
                     <div class="d-flex align-items-center">
                         <i class="bi bi-plus-circle"></i>
                         <span class="ms-1">Create category</span>
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <table class="mt-3 table table-bordered table-striped">
+        <table id="tblData" class="mt-3 table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>Category Name</th>
@@ -30,28 +30,13 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach (var obj in Model.OrderBy(u => u.DisplayOrder))
-                {
-                    <tr>
-                        <td>@obj.Name</td>
-                        <td>@obj.DisplayOrder</td>
-                        <td>
-                            <div class="w-75 btn-group" role="group">
-                                <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id"
-                                   class="btn btn-primary mx-2">
-                                    <i class="bi bi-pencil"></i> Edit
-                                </a>
-                                <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id"
-                                   class="btn btn-danger mx-2">
-                                    <i class="bi bi-trash"></i> Delete
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-
         </table>
     </div>
 </div>
+
+@section Scripts{
+
+    <script src="~/js/category.js"></script>
+}
+
+

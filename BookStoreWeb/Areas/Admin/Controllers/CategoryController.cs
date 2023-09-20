@@ -1,6 +1,8 @@
 ﻿using BookStore.DataAccess.Data;
 using BookStore.DataAccess.Repository.RepositoryInterface;
 using BookStore.Models;
+using BookStore.Models.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Web.Areas.Admin.Controllers
@@ -15,86 +17,69 @@ namespace BookStore.Web.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Category> categoryList = _unitOfWork.Category.GetAll().ToList();
-            return View(categoryList);
-        }
-
-        public IActionResult Create()
-        {
             return View();
         }
 
+        public IActionResult Upsert(int? id)
+        {
+
+            Category category = new Category();
+
+            if (id != null && id != 0)
+            {
+                //update
+                category = _unitOfWork.Category.Get(p => p.Id == id);
+            }
+
+            return View(category);
+        }
+
         [HttpPost]
-        public IActionResult Create(Category category)
+        public IActionResult Upsert(Category category)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Category.Add(category);
+                string action = "";
+                if (category.Id == 0)
+                {
+                    _unitOfWork.Category.Add(category);
+                    action = "created";
+                }
+                else
+                {
+                    _unitOfWork.Category.Update(category);
+                    action = "edited";
+                }
                 _unitOfWork.Save();
-                TempData["success"] = $"Category {category.Name} created successfully";
+                TempData["success"] = $"Category {category.Name} {action} successfully";
                 return RedirectToAction("Index");
             }
 
             return View(category);
         }
 
-        public IActionResult Edit(int? id)
+        #region API CALLS
+        [HttpGet]
+        public IActionResult GetAll()
         {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            Category? categoryFromDb = _unitOfWork.Category.Get(c => c.Id == id);
-            if (categoryFromDb == null)
-            {
-                return NotFound();
-            }
-
-            return View(categoryFromDb);
+            List<Category> categoryList = _unitOfWork.Category.GetAll().OrderBy(c => c.DisplayOrder).ToList();
+            return Json(new { data = categoryList });
         }
 
-        [HttpPost]
-        public IActionResult Edit(Category category)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Category.Update(category);
-                _unitOfWork.Save();
-                TempData["success"] = $"Category {category.Name} updated successfully";
-                return RedirectToAction("Index");
-            }
-
-            return View(category);
-        }
-
+        [HttpDelete]
         public IActionResult Delete(int? id)
         {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
             Category? categoryFromDb = _unitOfWork.Category.Get(c => c.Id == id);
             if (categoryFromDb == null)
             {
-                return NotFound();
-            }
-
-            return View(categoryFromDb);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePost(int? id)
-        {
-            Category? categoryFromDb = _unitOfWork.Category.Get(c => c.Id == id);
-            if (categoryFromDb == null)
-            {
-                return NotFound();
+                return Json(new { success = false, message = $"Error when deleting" });
             }
             _unitOfWork.Category.Remove(categoryFromDb);
             _unitOfWork.Save();
-            TempData["success"] = $"Category {categoryFromDb.Name} deleted successfully";
-            return RedirectToAction("Index");
+            
+            return Json(new { success = true, message = $"Category {categoryFromDb.Name} deleted successfully" });
         }
+        #endregion
     }
 }
 

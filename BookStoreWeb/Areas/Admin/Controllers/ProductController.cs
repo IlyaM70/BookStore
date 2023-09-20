@@ -20,8 +20,7 @@ namespace BookStore.Web.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Product> productList = _unitOfWork.Product.GetAll(includeProperties:"Category").ToList();
-            return View(productList);
+            return View();
         }
 
         public IActionResult Upsert(int? id) //Update+Insert=Upsert
@@ -84,17 +83,20 @@ namespace BookStore.Web.Areas.Admin.Controllers
                     productVM.Product.ImageUrl = @"\images\product\" + fileName;
                 }
 
+                string action = "";
                 if (productVM.Product.Id == 0)
                 {
                     _unitOfWork.Product.Add(productVM.Product);
+                    action = "created";
 
                 }
                 else
                 {
                     _unitOfWork.Product.Update(productVM.Product);
+                    action = "edited";
                 }
                 _unitOfWork.Save();
-                TempData["success"] = $"Product {productVM.Product.Title} created successfully";
+                TempData["success"] = $"Product {productVM.Product.Title} {action} successfully";
                 return RedirectToAction("Index");
             }
 
