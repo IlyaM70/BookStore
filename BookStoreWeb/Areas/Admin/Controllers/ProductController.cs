@@ -49,8 +49,14 @@ namespace BookStore.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Upsert(ProductViewModel productVM, IFormFile? file)
+        public IActionResult Upsert(ProductViewModel productVM,IFormFile? file)
         {
+            // check file then creating
+            if (file != null ||
+                //update
+                (file==null && productVM.Product.ImageUrl!=null))
+                ModelState.Remove("Product.ImageUrl");
+
             if (ModelState.IsValid)
             {
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
