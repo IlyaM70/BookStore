@@ -2,12 +2,15 @@
 using BookStore.DataAccess.Repository.RepositoryInterface;
 using BookStore.Models;
 using BookStore.Models.ViewModels;
+using BookStore.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = StaticDetails.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -27,7 +30,7 @@ namespace BookStore.Web.Areas.Admin.Controllers
 
             if (id != null && id != 0)
             {
-                //update
+                //update page
                 category = _unitOfWork.Category.Get(p => p.Id == id);
             }
 
