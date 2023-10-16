@@ -1,4 +1,7 @@
 ﻿@model Product
+@{
+    ViewData["Title"] = $"{Model.Title}";
+}
 <form method="post">
     <div class="card shadow border-0 mt-4 mb-4">
         <div class="card-header bg-primary bg-gradient text-light py-4">

@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Product>
-
+@{
+    ViewData["Title"] = "Home";
+}
 <div class="row pb-3">
     @foreach(var product in Model)
     {
