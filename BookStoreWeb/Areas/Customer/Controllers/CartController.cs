@@ -1,6 +1,7 @@
 ﻿using BookStore.DataAccess.Repository.RepositoryInterface;
 using BookStore.Models;
 using BookStore.Models.ViewModels;
+using BookStore.Web.Areas.Customer.Services.CartService;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
@@ -56,8 +57,8 @@ namespace BookStore.Web.Areas.Customer.Controllers
                 ItemCount = itemCount,
                 AddedId = _cartService
                         .GetCartItemsAsync().Result
-                        .Where(c => c.MealId == id)
-                        .FirstOrDefault().RecordId
+                        .Where(c => c.ProductId == id)
+                        .FirstOrDefault().ProductId
             };
             return Json(results);
         }
@@ -65,7 +66,7 @@ namespace BookStore.Web.Areas.Customer.Controllers
         [HttpPost]
         public IActionResult RemoveFromCart(int id)
         {
-            int productId = _cartService.GetCartItemAsync(id).Result.MealId;
+            int productId = _cartService.GetCartItemAsync(id).Result.ProductId;
             string productName = _unitOfWork.Product.Get(u => u.Id == id).Title;
             int itemCount = _cartService.RemoveFromCart(id);
 

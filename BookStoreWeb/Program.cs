@@ -3,6 +3,7 @@ using BookStore.DataAccess.Repository;
 using BookStore.DataAccess.Repository.RepositoryInterface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using BookStore.Web.Areas.Customer.Services.CartService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+builder.Services.AddScoped<ICartService,CartService>();
 
 var app = builder.Build();
 
