@@ -1,5 +1,6 @@
 ﻿using BookStore.DataAccess.Repository.RepositoryInterface;
 using BookStore.Models;
+using BookStore.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
