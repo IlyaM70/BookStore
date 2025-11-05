@@ -118,6 +118,21 @@ dotnet ef database update</code></pre>
 └─ BookStore.sln
 </code></pre>
 
+## 📸 Demo
+
+Below are some preview screenshots of the BookStore application:
+
+| Home Page | Product Details |
+|-----------|------------------|
+| ![Home](./Documentation/home.png) | ![Details](./Documentation/details.png) |
+
+| Admin Panel – Products | Admin Panel – Categories |
+|------------------------|---------------------------|
+| ![Admin Panel 1](./Documentation/adminpanel1.png) | ![Admin Panel 2](./Documentation/adminpanel2.png) |
+
+| Admin Panel – Create/Edit | Login Page | Register Page |
+|----------------------------|-------------|----------------|
+| ![Admin Panel 3](./Documentation/adminpanel3.png) | ![Login](./Documentation/login.png) | ![Register](./Documentation/register.png) |
   
 
 </body>
